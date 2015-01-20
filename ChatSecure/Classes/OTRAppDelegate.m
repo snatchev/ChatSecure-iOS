@@ -76,6 +76,12 @@
     [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [ZeroPush engageWithAPIKey:@"iosdev_servertoken" delegate:self];
+
+    if([application isRegisteredForRemoteNotifications]) {
+        //make sure we set the device token if it's blank or has changed
+        [[ZeroPush shared] registerForRemoteNotifications];
+    }
+
 #ifndef DEBUG
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
 #endif
