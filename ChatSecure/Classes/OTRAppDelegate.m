@@ -75,6 +75,7 @@
                                                                delegate:self];
     [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
     [[BITHockeyManager sharedHockeyManager] startManager];
+    [ZeroPush engageWithAPIKey:@"iosdev_servertoken" delegate:self];
 #ifndef DEBUG
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
 #endif
@@ -368,8 +369,8 @@
 
 // Delegation methods
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    
-    
+
+    [[ZeroPush shared] registerDeviceToken:devToken];
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {

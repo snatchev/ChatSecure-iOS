@@ -8,6 +8,7 @@
 
 #import "OTRNotificationPermissions.h"
 #import "OTRUtilities.h"
+#import "ZeroPush.h"
 
 static const UIUserNotificationType USER_NOTIFICATION_TYPES_REQUIRED = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
 static const UIRemoteNotificationType REMOTE_NOTIFICATION_TYPES_REQUIRED = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
@@ -16,17 +17,14 @@ static const UIRemoteNotificationType REMOTE_NOTIFICATION_TYPES_REQUIRED = UIRem
 
 + (void)iOS7AndBelowPermissions
 {
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:REMOTE_NOTIFICATION_TYPES_REQUIRED];
+    [[ZeroPush shared] registerForRemoteNotifications];
 }
 
 + (void)iOS8AndAbovePermissions;
 {
     if (![self canSendNotifications]) {
-        UIUserNotificationSettings* requestedSettings = [UIUserNotificationSettings settingsForTypes:USER_NOTIFICATION_TYPES_REQUIRED categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:requestedSettings];
+        [[ZeroPush shared] registerForRemoteNotifications];
     }
-    
-    
 }
 
 + (void)checkPermissions

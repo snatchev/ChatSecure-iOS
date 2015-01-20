@@ -35,6 +35,7 @@
 #import "Strings.h"
 #import "OTRXMPPManagedPresenceSubscriptionRequest.h"
 #import "OTRYapDatabaseRosterStorage.h"
+#import "ZeroPush.h"
 
 #import "OTRLog.h"
 
@@ -331,6 +332,7 @@ NSTimeInterval const kOTRChatStateInactiveTimeout = 120;
 	XMPPPresence *presence = [XMPPPresence presence]; // type="available" is implicit
 	
 	[[self xmppStream] sendElement:presence];
+    [[ZeroPush shared] subscribeToChannel:self.account.username];
 }
 
 - (void)goOffline
@@ -338,6 +340,7 @@ NSTimeInterval const kOTRChatStateInactiveTimeout = 120;
 	XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
 	
 	[[self xmppStream] sendElement:presence];
+    [[ZeroPush shared] unsubscribeFromChannel:self.account.username];
 }
 
 - (NSString *)accountDomainWithError:(id)error;

@@ -22,12 +22,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HockeySDK.h"
+#import "ZeroPush.h"
 
 @class OTRSettingsViewController;
 @class OTRMessagesViewController;
 @class OTRConversationViewController;
 
-@interface OTRAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate>
+@interface OTRAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate, ZeroPushDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) OTRSettingsViewController *settingsViewController;
